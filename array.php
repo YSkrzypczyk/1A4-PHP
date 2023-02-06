@@ -109,4 +109,11 @@ $class = [
 			["firstname"=>"Mike","CC1"=>12,"CC2"=>9, "partiel"=>13]
 ];
 
+
+$class2 = [
+			["firstname"=>"Reda",[12,14,1]],
+			["firstname"=>"Julien",[2,14,1]],
+			["firstname"=>"Célian",[13,1,1]],
+			["firstname"=>"Mike",[12,1]]
+];
 ?>
