@@ -101,19 +101,49 @@ foreach ($fruits as $fruit) {
 
 echo "</ul>";
 
-
 $class = [
-			["firstname"=>"Reda","CC1"=>15,"CC2"=>6, "partiel"=>10],
+			["firstname"=>"Reda","CC1"=>15,"CC2"=>16, "partiel"=>10],
 			["firstname"=>"Julien","CC1"=>14,"CC2"=>14, "partiel"=>12],
 			["firstname"=>"Célian","CC1"=>14,"CC2"=>14, "partiel"=>4],
 			["firstname"=>"Mike","CC1"=>12,"CC2"=>9, "partiel"=>13]
 ];
 
+$minAverage = 20;
+$maxAverage = 0;
+$winner;
+$looser;
 
-$class2 = [
-			["firstname"=>"Reda",[12,14,1]],
-			["firstname"=>"Julien",[2,14,1]],
-			["firstname"=>"Célian",[13,1,1]],
-			["firstname"=>"Mike",[12,1]]
-];
-?>
+echo '<table border="1px">
+	<tr>
+		<th>Prénom</th>
+		<th>Moyenne</th>
+	</tr>';
+
+foreach ($class as $student){
+
+
+
+
+	$average = ($student["CC1"]+$student["CC2"]+$student["partiel"])/3;
+
+	if($average <= $minAverage){
+		$looser = $student["firstname"];
+		$minAverage = $average;
+	}
+
+	if($average >= $maxAverage){
+		$winner = $student["firstname"];
+		$maxAverage = $average;
+	}
+
+
+
+	echo '<tr>';
+	echo '<td>'.$student["firstname"].'</td>';
+	echo '<td>'.round($average, 2).'</td>';
+	echo '</tr>';
+}
+
+echo '</table>';
+
+echo "Le pire c'est ".$looser." et le meilleur c'est ".$winner;
