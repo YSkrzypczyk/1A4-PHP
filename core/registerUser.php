@@ -76,8 +76,6 @@ if( !filter_var($email, FILTER_VALIDATE_EMAIL) ){
 	$listOfErrors[] = "L'email est incorrect";
 }
 
-
-
 // Date de naissance -> entre 6 et 80
 // Email -> Unicité
 // Pwd -> Min 8 caractères avec minuscules majuscules et chiffres
