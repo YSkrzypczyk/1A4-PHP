@@ -61,9 +61,9 @@
 
 						<div class="col-md-6">
 							<select name="city"  class="form-select">
-								<option>Paris</option>
-								<option>Bordeaux</option>
-								<option>Marseille</option>
+								<option value="0">Paris</option>
+								<option value="1">Bordeaux</option>
+								<option value="2">Marseille</option>
 							</select>
 						</div>
 					</div>
