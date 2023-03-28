@@ -116,8 +116,33 @@ if( $pwd != $pwdConfirm ){
 if( empty($listOfErrors))
 {
 	//SI OK
-	//Insertion en BDD
-	//Redirection login
+
+	//Connexion à la bdd (DSN, USER, PWD)
+	try{
+		$connection = new PDO("mysql:host=localhost;dbname=projet_web_1a4;port=3306", "root", "");
+	}catch(Exception $e){
+		die("Erreur SQL ".$e->getMessage());
+	}
+
+	//Insertion du USER
+	$queryPrepared = $connection->prepare("INSERT INTO esgi_user 
+										(gender, firstname, lastname, email, pwd, birthday, city)
+										VALUES 
+										(:gender, :firstname, :lastname, :email, :pwd, :birthday, :city)");
+
+	$queryPrepared->execute([
+								"gender"=>$gender,
+								"firstname"=>$firstname,
+								"lastname"=>$lastname,
+								"email"=>$email,
+								"pwd"=>$pwd,
+								"birthday"=>$birthday,
+								"city"=>$city
+							]);
+
+	//Redirection vers la page login
+
+
 }else{
 	//SI NOK
 	//Redirection sur register avec les erreurs
