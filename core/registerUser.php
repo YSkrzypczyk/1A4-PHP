@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require "functions.php";
 
 
@@ -13,7 +13,7 @@ require "functions.php";
 // -->Créée et alimentée par le serveur
 // -->Contient forcément un tableau
 
-print_r($_POST); 
+//print_r($_POST); 
 /*
 Array ( [gender] => 0 [lastname] => Skrzypczyk [firstname] => yves [birthday] => 1986-11-29 [city] => 0 [email] => y.skrzypczyk@gmail.com [pwd] => fds [pwdConfirm] => gdfs [cgu] => on )
 */
@@ -50,7 +50,6 @@ $birthday = $_POST["birthday"];
 
 
 $listOfErrors = [];
-
 //Vérification micro des valeurs
 
 // Gender -> Soit 0, 1 ou 2
@@ -75,11 +74,43 @@ if( !in_array($city, $listOfCities) ){
 if( !filter_var($email, FILTER_VALIDATE_EMAIL) ){
 	$listOfErrors[] = "L'email est incorrect";
 }
+// Email -> Unicité
+
+
 
 // Date de naissance -> entre 6 et 80
-// Email -> Unicité
+//echo $birthday; // 1986-11-29
+//time() et strtotime()
+
+$birthdayExploded = explode("-", $birthday);
+
+if( !checkdate($birthdayExploded[1], $birthdayExploded[2], $birthdayExploded[0])){
+	$listOfErrors[] = "Format de date incorrect";
+}else{
+	$todaySecond = time();
+	$birthdaySecond = strtotime($birthday);
+	$ageSecond = $todaySecond - $birthdaySecond;
+	$age = $ageSecond/60/60/24/365.25;
+	if( $age < 6 || $age > 80  ) {
+		$listOfErrors[] = "Vous n'avez pas l'âge requis";
+	}
+}
+
+
 // Pwd -> Min 8 caractères avec minuscules majuscules et chiffres
+if( strlen($pwd)<8 || 
+	!preg_match("#[a-z]#", $pwd)  || 
+	!preg_match("#[A-Z]#", $pwd)  || 
+	!preg_match("#[0-9]#", $pwd) ){
+
+		$listOfErrors[] = "Votre mot de passe doit faire au minimum 8 caractères avec des minuscules, des majuscules et des chiifres";
+}
+
+
 //pwdConfirm -> = Pwd
+if( $pwd != $pwdConfirm ){
+		$listOfErrors[] = "Votre mot de passe de confirmation ne correspond pas";
+}
 
 
 if( empty($listOfErrors))
@@ -90,4 +121,7 @@ if( empty($listOfErrors))
 }else{
 	//SI NOK
 	//Redirection sur register avec les erreurs
+	$_SESSION['errors'] = $listOfErrors;
+	header("location: ../register.php");
+
 }

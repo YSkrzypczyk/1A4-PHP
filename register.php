@@ -1,3 +1,5 @@
+<?php session_start();?>
+
 <?php require "core/functions.php" ?>
 
 <?php include "template/header.php" ?>
@@ -14,6 +16,29 @@
 				pwd, pwdConfirm
 				cgu
 				-->
+
+				<?php
+				 if(!empty($_SESSION['errors'])){
+				 	?>
+				 	
+
+				 	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						  <?php 
+								foreach($_SESSION['errors'] as $error){
+									echo "<li>".$error."</li>";
+								}
+							?>
+						  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+
+				<?php
+					unset($_SESSION['errors']);
+				 }
+
+				?>
+
+				
+
 				<form action="core/registerUser.php" method="POST">
 					<div class="row mb-4">
 						<div class="col-md-3">
