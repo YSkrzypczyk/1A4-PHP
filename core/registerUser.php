@@ -4,6 +4,7 @@ require "functions.php";
 
 
 
+
 //Objectif : Insérer en BDD l'utilisateur (9 champs)
 
 //Récupérer les valeurs de l'internaute
@@ -73,9 +74,22 @@ if( !in_array($city, $listOfCities) ){
 // Email -> Format
 if( !filter_var($email, FILTER_VALIDATE_EMAIL) ){
 	$listOfErrors[] = "L'email est incorrect";
-}
-// Email -> Unicité
+}else{
 
+	// Email -> Unicité
+	$connection = connectDB();
+	$queryPrepared = $connection->prepare("SELECT id FROM esgi_user WHERE email=:email");
+	$queryPrepared->execute([
+								"email"=>$email
+							]);
+
+	$result = $queryPrepared->fetch();
+
+	if(!empty($result)){
+		$listOfErrors[] = "L'email est déjà utilisé";
+	}
+
+}
 
 
 // Date de naissance -> entre 6 et 80
@@ -116,14 +130,6 @@ if( $pwd != $pwdConfirm ){
 if( empty($listOfErrors))
 {
 	//SI OK
-
-	//Connexion à la bdd (DSN, USER, PWD)
-	try{
-		$connection = new PDO("mysql:host=localhost;dbname=projet_web_1a4;port=3306", "root", "");
-	}catch(Exception $e){
-		die("Erreur SQL ".$e->getMessage());
-	}
-
 	//Insertion du USER
 	$queryPrepared = $connection->prepare("INSERT INTO esgi_user 
 										(gender, firstname, lastname, email, pwd, birthday, city)
@@ -135,13 +141,13 @@ if( empty($listOfErrors))
 								"firstname"=>$firstname,
 								"lastname"=>$lastname,
 								"email"=>$email,
-								"pwd"=>$pwd,
+								"pwd"=>password_hash($pwd, PASSWORD_DEFAULT),
 								"birthday"=>$birthday,
 								"city"=>$city
 							]);
 
 	//Redirection vers la page login
-
+	header("location: ../login.php");
 
 }else{
 	//SI NOK
