@@ -28,6 +28,10 @@
         <?php if(isConnected()) { ?>
 
         <li class="nav-item">
+          <a class="nav-link" href="users.php">Les utilisateurs</a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="logout.php">Se déconnecter</a>
         </li>
 
