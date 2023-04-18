@@ -1,7 +1,7 @@
 <?php 
-session_start();
-require "core/functions.php";
- ?>
+	session_start();
+	require "core/functions.php";
+?>
 
 <?php include "template/header.php" ?>
 
@@ -51,5 +51,8 @@ Consigne du TP
 	<input type="password" name="pwd">
 	<button>Se connecter</button>
 </form>
+
+
+
 
 <?php include "template/footer.php" ?>

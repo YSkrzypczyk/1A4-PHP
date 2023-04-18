@@ -1,4 +1,7 @@
-<?php require "core/functions.php" ?>
+<?php
+	session_start();
+ 	require "core/functions.php" 
+ ?>
 
 <?php include "template/header.php" ?>
 
