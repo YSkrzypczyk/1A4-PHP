@@ -50,7 +50,7 @@
 					echo "<td>".$user["city"]."</td>";
 					echo "<td>".$user["date_inserted"]."</td>";
 					echo "<td>".$user["date_updated"]."</td>";
-					echo "<td><a href='' class='btn btn-danger'>Supprimer</a></td>";
+					echo "<td><a href='core/removeUser.php?id=".$user["id"]."' class='btn btn-danger'>Supprimer</a></td>";
 
 					echo "</tr>";
 				}

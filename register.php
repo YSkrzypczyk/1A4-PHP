@@ -107,6 +107,16 @@
 						</div>
 						
 					</div>
+
+					<div class="row mb-4">
+						<div class="col-md-6">
+							<img src="captcha.php" width="100%">
+						</div>
+						<div class="col-md-6">
+							<input class="form-control" type="text" name="captcha" placeholder="Captcha" required="required">
+						</div>
+						
+					</div>
 					<div class="row mb-4">
 						<div class="col-md-12">
 

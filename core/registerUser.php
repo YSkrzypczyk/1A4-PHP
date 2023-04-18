@@ -22,7 +22,7 @@ Array ( [gender] => 0 [lastname] => Skrzypczyk [firstname] => yves [birthday] =>
 
 //Vérification macro
 //Vérification du nb et des champs required non vides
-if( count($_POST) != 9 
+if( count($_POST) != 10 
 	|| !isset($_POST["gender"])
 	|| empty($_POST["lastname"])
 	|| empty($_POST["firstname"])
@@ -32,6 +32,7 @@ if( count($_POST) != 9
 	|| empty($_POST["pwd"])
 	|| empty($_POST["pwdConfirm"])
 	|| empty($_POST["cgu"])
+	|| empty($_POST["captcha"])
 )
 {
 	die("Tentative de HACK !!!!");
@@ -49,6 +50,7 @@ $pwd = $_POST["pwd"];
 $pwdConfirm = $_POST["pwdConfirm"];
 $city = $_POST["city"];
 $birthday = $_POST["birthday"];
+$captcha = $_POST["captcha"];
 
 
 $listOfErrors = [];
@@ -125,6 +127,10 @@ if( strlen($pwd)<8 ||
 //pwdConfirm -> = Pwd
 if( $pwd != $pwdConfirm ){
 		$listOfErrors[] = "Votre mot de passe de confirmation ne correspond pas";
+}
+
+if( $captcha != $_SESSION['captcha'] ){
+		$listOfErrors[] = "le captcha est incorrect";
 }
 
 
