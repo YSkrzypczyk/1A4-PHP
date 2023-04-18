@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	require "conf.inc.php";
 	require "core/functions.php";
 ?>
 
@@ -26,7 +27,7 @@ Consigne du TP
 		$pwd = $_POST['pwd'];
 
 		$connect = connectDB();
-		$queryPrepared = $connect->prepare("SELECT pwd FROM esgi_user WHERE email=:email");
+		$queryPrepared = $connect->prepare("SELECT pwd FROM ".DB_PREFIX."user WHERE email=:email");
 		$queryPrepared->execute(["email"=>$email]);
 		$result = $queryPrepared->fetch();
 

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require "../conf.inc.php";
 require "functions.php";
 
 
@@ -78,7 +79,7 @@ if( !filter_var($email, FILTER_VALIDATE_EMAIL) ){
 
 	// Email -> Unicité
 	$connection = connectDB();
-	$queryPrepared = $connection->prepare("SELECT id FROM esgi_user WHERE email=:email");
+	$queryPrepared = $connection->prepare("SELECT id FROM ".DB_PREFIX."user WHERE email=:email");
 	$queryPrepared->execute([
 								"email"=>$email
 							]);
@@ -131,7 +132,7 @@ if( empty($listOfErrors))
 {
 	//SI OK
 	//Insertion du USER
-	$queryPrepared = $connection->prepare("INSERT INTO esgi_user 
+	$queryPrepared = $connection->prepare("INSERT INTO ".DB_PREFIX."user 
 										(gender, firstname, lastname, email, pwd, birthday, city)
 										VALUES 
 										(:gender, :firstname, :lastname, :email, :pwd, :birthday, :city)");

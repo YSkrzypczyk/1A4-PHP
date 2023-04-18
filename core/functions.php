@@ -21,7 +21,7 @@ function cleanEmail($email){
 function connectDB(){
 	//Connexion à la bdd (DSN, USER, PWD)
 	try{
-		$connection = new PDO("mysql:host=localhost;dbname=projet_web_1a4;port=3306", "root", "");
+		$connection = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT, DB_USER, DB_PWD);
 	}catch(Exception $e){
 		die("Erreur SQL ".$e->getMessage());
 	}
@@ -35,7 +35,7 @@ function isConnected(){
 	if(!empty($_SESSION["email"]) && !empty($_SESSION["login"])){
 		
 		$connect = connectDB();
-		$queryPrepared = $connect->prepare("SELECT id FROM esgi_user WHERE email=:email");
+		$queryPrepared = $connect->prepare("SELECT id FROM ".DB_PREFIX."user WHERE email=:email");
 		$queryPrepared->execute(["email"=>$_SESSION["email"]]);
 		$result = $queryPrepared->fetch();
 		//Si l'email que l'on a en session existe aussi dans la bdd
@@ -53,3 +53,4 @@ function redirectIfNotConnected(){
 		header("Location: login.php");
 	}
 }
+
