@@ -1,7 +1,7 @@
 <?php session_start();?>
 
+<?php require "conf.inc.php" ?>
 <?php require "core/functions.php" ?>
-
 <?php include "template/header.php" ?>
 
 <div class="row justify-content-center">

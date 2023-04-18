@@ -130,6 +130,7 @@ if( $pwd != $pwdConfirm ){
 
 if( empty($listOfErrors))
 {
+	
 	//SI OK
 	//Insertion du USER
 	$queryPrepared = $connection->prepare("INSERT INTO ".DB_PREFIX."user 
